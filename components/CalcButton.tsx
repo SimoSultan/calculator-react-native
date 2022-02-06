@@ -4,19 +4,21 @@ type Props = {
     text: string
     size: string
     modifier?: boolean
+    onPress: Function
 }
 
-export const CalcButton: React.FC<Props> = ({ text, size, modifier }) => {
-    const handleClick = (value: string) => {
-        console.log(value)
-    }
-
+export const CalcButton: React.FC<Props> = ({
+    text,
+    size,
+    modifier,
+    onPress,
+}) => {
     return (
         <View style={styles(size).buttonContainer}>
             <Pressable
                 style={styles(size, modifier).button}
                 onPress={() => {
-                    handleClick(text)
+                    onPress(text)
                 }}
             >
                 <Text style={styles(size).buttonText}>{text}</Text>
