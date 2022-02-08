@@ -16,6 +16,6 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         maxWidth: "90%",
         paddingBottom: 40,
-        paddingTop: 100,
+        paddingTop: 50,
     },
 })

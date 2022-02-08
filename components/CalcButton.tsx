@@ -16,7 +16,9 @@ export const CalcButton: React.FC<Props> = ({
     return (
         <View style={styles(size).buttonContainer}>
             <Pressable
-                style={styles(size, modifier).button}
+                style={({ pressed }) => [
+                    styles(size, modifier, pressed).button,
+                ]}
                 onPress={() => {
                     onPress(text)
                 }}
@@ -27,7 +29,14 @@ export const CalcButton: React.FC<Props> = ({
     )
 }
 
-export const styles = (size: string, modifier?: boolean) =>
+const getBackgroundColour = (modifier?: boolean, pressed?: boolean) => {
+    if (modifier) {
+        return pressed ? "#e58928" : "orange"
+    }
+    return pressed ? "#dcdcdc" : "whitesmoke"
+}
+
+export const styles = (size: string, modifier?: boolean, pressed?: boolean) =>
     StyleSheet.create({
         buttonContainer: {
             flex: size === "sm" ? 1 : 2,
@@ -37,7 +46,7 @@ export const styles = (size: string, modifier?: boolean) =>
             flex: 1,
             padding: 10,
             margin: 3,
-            backgroundColor: modifier ? "orange" : "whitesmoke",
+            backgroundColor: getBackgroundColour(modifier, pressed),
             borderColor: "black",
             borderStyle: "solid",
             borderWidth: 1,

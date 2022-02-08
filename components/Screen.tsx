@@ -6,30 +6,16 @@ type Props = {
 }
 
 export const Screen: React.FC<Props> = ({ operands }) => {
-    // const [display, setDisplay] = useState("0")
-    // useEffect(() => {
-    //     setDisplay(
-    //         // `${operands.firstOperand} ${operands.operator} ${operands.secondOperand}`
-    //         operands.firstOperand +
-    //             " " +
-    //             operands.operator +
-    //             " " +
-    //             operands.secondOperand
-    //     )
-    // }, [operands.firstOperand, operands.operator, operands.secondOperand])
-
     return (
         <View style={styles.screen}>
-            {/* <Text style={styles.screenText}>
-                {`${operands.firstOperand} ${operands.operator} ${operands.secondOperand}`}
-            </Text> */}
-            <View>
-                <Text style={styles.screenText}>{operands.firstOperand}</Text>
-                <Text style={styles.screenText}>{operands.operator}</Text>
-                <Text style={styles.screenText}>{operands.secondOperand}</Text>
+            <View style={styles.inputContainer}>
+                <Text style={styles.inputText} numberOfLines={2}>
+                    {`${operands.firstOperand} ${operands.operator} ${operands.secondOperand}`}
+                </Text>
             </View>
-            <View>
-                <Text style={styles.screenText}>
+
+            <View style={styles.resultContainer}>
+                <Text style={styles.resultText} numberOfLines={1}>
                     {operands.result === 0 ? "" : operands.result}
                 </Text>
             </View>
@@ -39,21 +25,39 @@ export const Screen: React.FC<Props> = ({ operands }) => {
 
 const styles = StyleSheet.create({
     screen: {
-        padding: 20,
+        padding: 10,
+        paddingRight: 30,
         backgroundColor: "#2e2f30",
         flex: 1,
         width: "100%",
         justifyContent: "center",
         alignItems: "flex-end",
     },
-    screenText: {
+    resultText: {
         color: "white",
-        fontSize: 50,
+        fontSize: 55,
+        fontWeight: "100",
+    },
+    inputText: {
+        color: "white",
+        fontSize: 30,
         fontWeight: "100",
     },
     textSpacer: {
         width: 10,
         flex: 1,
         margin: 10,
+    },
+    resultContainer: {
+        flex: 1,
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        paddingBottom: 10,
+    },
+    inputContainer: {
+        flex: 0,
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        paddingTop: 10,
     },
 })

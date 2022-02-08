@@ -9,7 +9,6 @@ export type CalcState = {
     operator: string
     secondOperand: string
     result: number
-    screenDisplay: string
 }
 
 const initialState: CalcState = {
@@ -17,45 +16,72 @@ const initialState: CalcState = {
     operator: "",
     secondOperand: "",
     result: 0,
-    screenDisplay: "",
 }
 
 const Calculator = () => {
     const [operands, setOperands] = useState(initialState)
 
     const handlePress = (value: string) => {
-        if (value === "=") {
-            console.log(evaluateExpression(operands))
-
-            setOperands({
-                ...operands,
-                result: Number(evaluateExpression(operands)),
-            })
-            return
-        } else if (value === "AC") {
-            clearScreen()
-            return
+        let { firstOperand, operator, secondOperand, result } = operands
+        switch (value) {
+            case "=":
+                return setOperands({
+                    ...operands,
+                    result: Number(evaluateExpression(operands)),
+                })
+            case "AC":
+                return clearScreen()
+            case "+":
+            case "-":
+            case "x":
+            case "/":
+                if (operator !== "") return
+                return setOperands({ ...operands, operator: value })
+            case "DEL":
+                if (
+                    result !== 0 &&
+                    (secondOperand !== "" ||
+                        firstOperand !== "" ||
+                        operator !== "")
+                ) {
+                    return clearScreen()
+                } else if (secondOperand !== "") {
+                    return setOperands({
+                        ...operands,
+                        secondOperand: secondOperand.slice(0, -1),
+                    })
+                } else if (operator !== "") {
+                    return setOperands({
+                        ...operands,
+                        operator: "",
+                    })
+                } else {
+                    return setOperands({
+                        ...operands,
+                        firstOperand: firstOperand.slice(0, -1),
+                    })
+                }
+            default:
+                break
         }
 
-        if (operands.operator === "") {
-            setOperands({
+        if (
+            result !== 0 &&
+            (secondOperand !== "" || firstOperand !== "" || operator !== "")
+        ) {
+            return setOperands({ ...initialState, firstOperand: value })
+        }
+
+        if (operator === "") {
+            return setOperands({
                 ...operands,
                 firstOperand:
-                    operands.firstOperand === "0"
-                        ? value
-                        : (operands.firstOperand += value),
+                    firstOperand === "0" ? value : (firstOperand += value),
             })
-        } else if (
-            value === "+" ||
-            value === "-" ||
-            value === "x" ||
-            value === "/"
-        ) {
-            setOperands({ ...operands, operator: value })
-        } else if (operands.operator !== "") {
-            setOperands({
+        } else if (operator !== "") {
+            return setOperands({
                 ...operands,
-                secondOperand: (operands.secondOperand += value),
+                secondOperand: (secondOperand += value),
             })
         }
     }
@@ -78,7 +104,7 @@ const Calculator = () => {
                         onPress={handlePress}
                     />
                     <CalcButton
-                        text="Del"
+                        text="DEL"
                         size="sm"
                         modifier
                         onPress={handlePress}
@@ -154,7 +180,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     allButtonsContainer: {
-        flex: 3,
+        flex: 2,
         width: "100%",
     },
     screenContainer: {
