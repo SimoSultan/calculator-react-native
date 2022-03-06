@@ -1,10 +1,9 @@
 import React from "react"
 import { Text, View } from "react-native"
-import { ScreenProps, ScreenStyles } from "./Screen"
+import { ScreenProps } from "../../types/types"
+import { ScreenStyles } from "../../styles/styles"
 
 export const ScreenOutput: React.FC<ScreenProps> = ({ operands }) => {
-    console.log(operands)
-
     return (
         <View style={ScreenStyles.resultContainer}>
             <Text style={ScreenStyles.resultText} numberOfLines={1}>

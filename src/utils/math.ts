@@ -1,4 +1,4 @@
-import { CalcState, Operators } from "../components/Calculator"
+import { CalcState, Operators } from "../types/types"
 
 const evaluateExpression = (operands: CalcState) => {
     let result = 0
