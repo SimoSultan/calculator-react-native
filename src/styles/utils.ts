@@ -1,6 +1,12 @@
+import { ButtonStyleConstants } from "src/constants"
+
 export const getBackgroundColour = (modifier?: boolean, pressed?: boolean) => {
     if (modifier) {
-        return pressed ? "#e58928" : "orange"
+        return pressed
+            ? ButtonStyleConstants.operatorBackgroundHover
+            : ButtonStyleConstants.operatorBackground
     }
-    return pressed ? "#dcdcdc" : "whitesmoke"
+    return pressed
+        ? ButtonStyleConstants.operandBackgroundHover
+        : ButtonStyleConstants.operandBackground
 }

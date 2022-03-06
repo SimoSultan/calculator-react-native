@@ -25,7 +25,9 @@ export const CalcButton: React.FC<ButtonProps> = ({
                     onPress(text)
                 }}
             >
-                <Text style={ButtonStyles(size).buttonText}>{text}</Text>
+                <Text style={ButtonStyles(size, modifier).buttonText}>
+                    {text}
+                </Text>
             </Pressable>
         </View>
     )

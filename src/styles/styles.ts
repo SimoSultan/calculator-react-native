@@ -1,23 +1,28 @@
-import { StyleSheet } from "react-native"
+import { Dimensions, StyleSheet } from "react-native"
 import { getBackgroundColour } from "./utils"
+import {
+    ScreenStyleConstants,
+    ButtonStyleConstants,
+    CalculatorStylesConstants,
+} from "src/constants"
 
 export const ScreenStyles = StyleSheet.create({
     screen: {
         padding: 10,
         paddingRight: 30,
-        backgroundColor: "#2e2f30",
+        backgroundColor: ScreenStyleConstants.backgroundColour,
         flex: 1,
         width: "100%",
         justifyContent: "center",
         alignItems: "flex-end",
     },
     resultText: {
-        color: "white",
+        color: ScreenStyleConstants.resultTextColour,
         fontSize: 55,
         fontWeight: "100",
     },
     inputText: {
-        color: "white",
+        color: ScreenStyleConstants.inputTextColour,
         fontSize: 30,
         fontWeight: "100",
     },
@@ -53,24 +58,30 @@ export const ButtonStyles = (
         button: {
             flex: 1,
             padding: 10,
-            margin: 3,
+            margin: 2,
             backgroundColor: getBackgroundColour(modifier, pressed),
-            borderColor: "black",
-            borderStyle: "solid",
-            borderWidth: 1,
+            // borderColor: ButtonStyleConstants.buttonBorderColour,
+            // borderStyle: "solid",
+            // borderWidth: 1,
             justifyContent: "center",
             alignItems: "center",
         },
         buttonText: {
             fontSize: 30,
+            color: modifier
+                ? ButtonStyleConstants.operatorTextColour
+                : ButtonStyleConstants.operandTextColour,
         },
     })
 
 export const CalculatorStyles = StyleSheet.create({
     calcContainer: {
-        flex: 1,
+        width: Dimensions.get("window").width,
+        height: Dimensions.get("window").height,
+        alignSelf: "center",
+        padding: 3,
         flexDirection: "column",
-        backgroundColor: "#fff",
+        backgroundColor: CalculatorStylesConstants.backgroundColour,
         alignItems: "center",
         justifyContent: "center",
     },
