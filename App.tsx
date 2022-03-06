@@ -1,5 +1,6 @@
-import { SafeAreaView, StyleSheet, View } from "react-native"
-import Calculator from "./components/Calculator"
+import { SafeAreaView, StyleSheet } from "react-native"
+import Calculator from "./src/components/Calculator"
+import "@expo/match-media"
 
 export default function App() {
     return (

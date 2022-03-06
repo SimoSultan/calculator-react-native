@@ -1,29 +1,21 @@
-import { StyleSheet, Text, View } from "react-native"
-import { CalcState } from "./Calculator"
+import { ScreenInput, ScreenOutput } from "../exports"
+import { StyleSheet, View } from "react-native"
+import { CalcState } from "../Calculator"
 
-type Props = {
+export type ScreenProps = {
     operands: CalcState
 }
 
-export const Screen: React.FC<Props> = ({ operands }) => {
+export const Screen: React.FC<ScreenProps> = ({ operands }) => {
     return (
-        <View style={styles.screen}>
-            <View style={styles.inputContainer}>
-                <Text style={styles.inputText} numberOfLines={2}>
-                    {`${operands.firstOperand} ${operands.operator} ${operands.secondOperand}`}
-                </Text>
-            </View>
-
-            <View style={styles.resultContainer}>
-                <Text style={styles.resultText} numberOfLines={1}>
-                    {operands.result === 0 ? "" : operands.result}
-                </Text>
-            </View>
+        <View style={ScreenStyles.screen}>
+            <ScreenInput operands={operands} />
+            <ScreenOutput operands={operands} />
         </View>
     )
 }
 
-const styles = StyleSheet.create({
+export const ScreenStyles = StyleSheet.create({
     screen: {
         padding: 10,
         paddingRight: 30,

@@ -11,6 +11,17 @@ export type CalcState = {
     result: number
 }
 
+export enum Operators {
+    Empty = "",
+    Addition = "+",
+    Subtraction = "-",
+    Divide = "/",
+    Multiply = "*",
+    Equal = "=",
+    ClearAll = "AC",
+    Backspace = "DEL",
+}
+
 const initialState: CalcState = {
     firstOperand: "0",
     operator: "",
@@ -24,20 +35,20 @@ const Calculator = () => {
     const handlePress = (value: string) => {
         let { firstOperand, operator, secondOperand, result } = operands
         switch (value) {
-            case "=":
+            case Operators.Equal:
                 return setOperands({
                     ...operands,
                     result: Number(evaluateExpression(operands)),
                 })
-            case "AC":
+            case Operators.ClearAll:
                 return clearScreen()
-            case "+":
-            case "-":
-            case "x":
-            case "/":
-                if (operator !== "") return
+            case Operators.Addition:
+            case Operators.Subtraction:
+            case Operators.Multiply:
+            case Operators.Divide:
+                if (operator !== Operators.Empty) return
                 return setOperands({ ...operands, operator: value })
-            case "DEL":
+            case Operators.Backspace:
                 if (
                     result !== 0 &&
                     (secondOperand !== "" ||
@@ -50,10 +61,10 @@ const Calculator = () => {
                         ...operands,
                         secondOperand: secondOperand.slice(0, -1),
                     })
-                } else if (operator !== "") {
+                } else if (operator !== Operators.Empty) {
                     return setOperands({
                         ...operands,
-                        operator: "",
+                        operator: Operators.Empty,
                     })
                 } else {
                     return setOperands({
@@ -72,13 +83,13 @@ const Calculator = () => {
             return setOperands({ ...initialState, firstOperand: value })
         }
 
-        if (operator === "") {
+        if (operator === Operators.Empty) {
             return setOperands({
                 ...operands,
                 firstOperand:
                     firstOperand === "0" ? value : (firstOperand += value),
             })
-        } else if (operator !== "") {
+        } else if (operator !== Operators.Empty) {
             return setOperands({
                 ...operands,
                 secondOperand: (secondOperand += value),
@@ -98,19 +109,19 @@ const Calculator = () => {
             <View style={styles.allButtonsContainer}>
                 <View style={styles.row}>
                     <CalcButton
-                        text="AC"
+                        text={Operators.ClearAll}
                         size="lg"
                         modifier
                         onPress={handlePress}
                     />
                     <CalcButton
-                        text="DEL"
+                        text={Operators.Backspace}
                         size="sm"
                         modifier
                         onPress={handlePress}
                     />
                     <CalcButton
-                        text="/"
+                        text={Operators.Divide}
                         size="sm"
                         modifier
                         onPress={handlePress}
@@ -121,7 +132,7 @@ const Calculator = () => {
                     <CalcButton text="2" size="sm" onPress={handlePress} />
                     <CalcButton text="3" size="sm" onPress={handlePress} />
                     <CalcButton
-                        text="x"
+                        text={Operators.Multiply}
                         size="sm"
                         modifier
                         onPress={handlePress}
@@ -132,7 +143,7 @@ const Calculator = () => {
                     <CalcButton text="5" size="sm" onPress={handlePress} />
                     <CalcButton text="6" size="sm" onPress={handlePress} />
                     <CalcButton
-                        text="+"
+                        text={Operators.Addition}
                         size="sm"
                         modifier
                         onPress={handlePress}
@@ -143,7 +154,7 @@ const Calculator = () => {
                     <CalcButton text="8" size="sm" onPress={handlePress} />
                     <CalcButton text="9" size="sm" onPress={handlePress} />
                     <CalcButton
-                        text="-"
+                        text={Operators.Subtraction}
                         size="sm"
                         modifier
                         onPress={handlePress}
@@ -153,7 +164,7 @@ const Calculator = () => {
                     <CalcButton text="." size="sm" onPress={handlePress} />
                     <CalcButton text="0" size="sm" onPress={handlePress} />
                     <CalcButton
-                        text="="
+                        text={Operators.Equal}
                         size="lg"
                         modifier
                         onPress={handlePress}
