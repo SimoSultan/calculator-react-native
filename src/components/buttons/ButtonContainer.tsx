@@ -1,10 +1,9 @@
 import React from "react"
 import { View } from "react-native"
 import { CalcButton } from "./CalcButton"
-import { CalcState, Operators } from "../../types/types"
-import { CalculatorStyles } from "../../styles/styles"
-import { CalculatorInitialState } from "../../types/types"
-import { evaluateExpression } from "../../utils/math"
+import { CalcState, Operators, CalculatorInitialState } from "src/types/types"
+import { CalculatorStyles } from "src/styles/styles"
+import { evaluateExpression } from "src/utils/math"
 
 type ButtonContainerProps = {
     operands: CalcState

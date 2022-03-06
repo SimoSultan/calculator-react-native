@@ -3,8 +3,8 @@ import { StatusBar } from "expo-status-bar"
 import { useState } from "react"
 import { View } from "react-native"
 import { ButtonContainer } from "./exports"
-import { CalculatorInitialState } from "../types/types"
-import { CalculatorStyles } from "../styles/styles"
+import { CalculatorInitialState } from "src/types/types"
+import { CalculatorStyles } from "src/styles/styles"
 
 const Calculator = () => {
     const [operands, setOperands] = useState(CalculatorInitialState)
